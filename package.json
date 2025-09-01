@@ -1,0 +1,22 @@
+{
+  "name": "slackbot",
+  "version": "1.0.0",
+  "description": "Slack bot for birthdays",
+  "main": "index.js",
+  "scripts": {
+    "start": "node src/index.js",
+    "dev": "nodemon src/index.js"
+  },
+  "keywords": ["slack"],
+  "author": "Eduardo Tashiro",
+  "license": "MIT",
+  "type": "module",
+  "dependencies": {
+    "@slack/bolt": "^4.4.0",
+    "node-cron": "^4.2.1"
+  },
+  "devDependencies": {
+    "dotenv": "^17.2.1",
+    "nodemon": "^3.1.10"
+  }
+}
