@@ -1,7 +1,7 @@
 import { WebClient } from "@slack/web-api"
 import dotenv from "dotenv"
 import { readFileSync } from "fs"
-import cron from "node-cron";
+import cron from "node-cron"
 
 dotenv.config()
 
@@ -25,31 +25,44 @@ function getToday() {
 
 // Função para enviar mensagem
 async function sendBirthdayMessage(userId, name) {
+
     try {
-        const result = await client.chat.postMessage({
+        await client.chat.postMessage({
             channel: channelId,
             text: `Feliz Aniversário <@${userId}> !!! 🥳🎉🌵`
         })
-        console.log(`Mensagem enviada para ${name}`);
+
+        console.log(`Mensagem enviada para ${name}`)
+
     } catch (error) {
         console.error("erro ao enviar", error)
     }
 }
 
-cron.schedule('0 10 * * *', () => {
-
+cron.schedule('9 6 * * *', async () => {
     const today = getToday()
     const aniversariantes = birthdays.filter(b => b.date === today)
 
     if (aniversariantes.length > 0) {
-        aniversariantes.forEach(b => {
-            console.log(`Hoje é aniversário de: ${b.name} (ID: ${b.user})`);
-            sendBirthdayMessage(b.user, b.name)
-        });
+        for (const b of aniversariantes) {
+            console.log(`Hoje é aniversário de: ${b.name} (ID: ${b.user})`)
+            await sendBirthdayMessage(b.user, b.name)
+        }
     } else {
         console.log('nenhum aniversario hoje')
     }
 })
+
+
+
+
+
+
+
+
+
+
+
 
 
 
