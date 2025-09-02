@@ -39,13 +39,13 @@ async function sendBirthdayMessage(userId, name) {
     }
 }
 
-cron.schedule('9 6 * * *', async () => {
+cron.schedule('28 6 * * *', async () => {
     const today = getToday()
     const aniversariantes = birthdays.filter(b => b.date === today)
 
     if (aniversariantes.length > 0) {
         for (const b of aniversariantes) {
-            console.log(`Hoje é aniversário de: ${b.name} (ID: ${b.user})`)
+            console.log(`Hoje é aniversário de: ${b.name} (${b.user})`)
             await sendBirthdayMessage(b.user, b.name)
         }
     } else {

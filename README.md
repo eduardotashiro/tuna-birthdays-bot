@@ -1,67 +1,84 @@
 # Slack Birthday Bot 🎉
 
-Bot que envia automaticamente mensagens de aniversário no Slack para usuários de um canal específico.  
+### Um bot em Node.js que envia automaticamente mensagens de aniversário no Slack para usuários de um canal específico.
 
-Feito em Node.js usando `@slack/web-api` e `node-cron`.  
+Feito com [@slack/web-api](https://docs.slack.dev/tools/node-slack-sdk/web-api) e [node-cron](https://github.com/kelektiv/node-cron)
 
-Permite enviar mensagens no dia do aniversário de cada usuário automaticamente.
+> O bot lê aniversários de um arquivo JSON local e envia uma mensagem personalizada no Slack no dia correto.
 
+### Funcionalidades
 
+* Envia mensagens de aniversário no canal 
+Slack configurado
 
-## Funcionalidades
+* Agendamento automático com node-cron
 
-- Envia mensagem de aniversário no canal Slack definido.
+* Armazena aniversários em um JSON (data/birthdays.json)
 
-- Usa JSON local para armazenar usuários e datas.
+### Pré-requisitos
 
-- Configuração via arquivo `.env`.
-- Agendamento automático usando `node-cron`.
+* [Node.js 18+](https://nodejs.org/pt)
 
+* Um token válido do Slack Bot (SLACK_BOT_TOKEN)
 
-## Pré-requisitos
+* Uma workspace Slack com permissões para criar apps
 
-- Node.js 18+  
+* Uma workspace Slack com permissões para criar apps/bots
 
-- Conta Slack e token de bot válido  
+* ID do canal do Slack onde as mensagens serão enviadas (CHANNEL_ID)
 
-- Canal no Slack para enviar mensagens
+### Dependências
 
-## Instalação
+* [@slack/web-api](https://docs.slack.dev/tools/node-slack-sdk/web-api) -> SDK oficial do Slack para Node.js
 
-1. Clone o repositório:
+* [node-cron](https://github.com/kelektiv/node-cron) -> Agendador de tarefas estilo cron
 
-   ```
-   git clone https://github.com/eduardotashiro/tuna-birthdays-bot.git
-   cd tuna-birthdays-bot
-   ```
+* [dotenv](https://github.com/motdotla/dotenv) -> Carrega variáveis de ambiente
 
-2. Instale as dependências:
-   ```
-   npm iNSTALL
-   ```
+* [fs(File System)](https://nodejs.org/api/fs.html) -> Mod nativo do Node.js para ler/escrever arquivos
 
-3.  Crie `.env` na raiz com suas credenciais Slack.
+### Instalação
 
----
-
-4. Adicione os aniversários em um arquivo json `data/birthdays.json`.
-
----
-
-5. Como rodar`
+1 - Clone o repo
 
 ```bash
-npm start      #execução normal
-npm run dev    # com nodemon para desenvolvimento
+git clone https://github.com/eduardotashiro/tuna-birthdays-bot.git
 ```
+2 - Instale as dependências
+
+```bash
+npm install
+```
+3 - Crie o arquivo `.env` na raiz do projeto e adicione:
+
+```bash
+SLACK_BOT_TOKEN=seu_token_aqui
+
+CHANNEL_ID=canal_aqui
+```
+4 - Crie o arquivo `data/birthdays.json` com a lista de aniversariantes:
+
+```bash
+[
+  { "name": "Fulano", "user": "40028922", "date": "02-02" },
+  { "name": "Ciclano", "user": "40038922", "date": "03-03" }
+]
+```
+* `user`: ID do usuário no Slack
+
+* `date`: formato MM-DD
+
+5- Rode o projeto
+
+```bash
+npm start      # execução normal
+npm run dev    # execução com nodemon (desenvolvimento)
+```
+
+### OBS: 
+
+> O bot só funciona enquanto seu computador/servidor estiver ligado e rodando.
+
 ---
 
-**Observação**: O bot só funciona enquanto o seu computador está ligado e o script rodando. Para rodar 24/7, considere um servidor na nuvem.
-
----
-
-MIT © Eduardo Tashiro
-  
-
-
-
+***MIT*** © **Eduardo Tashiro**
