@@ -23,8 +23,6 @@ Slack configurado
 
 * Uma workspace Slack com permissões para criar apps
 
-* Uma workspace Slack com permissões para criar apps/bots
-
 * ID do canal do Slack onde as mensagens serão enviadas (CHANNEL_ID)
 
 ### Dependências
@@ -75,9 +73,9 @@ npm start      # execução normal
 npm run dev    # execução com nodemon (desenvolvimento)
 ```
 
-### OBS: 
 
-> O bot só funciona enquanto seu computador/servidor estiver ligado e rodando.
+
+#### ***Importante:*** O bot só funciona enquanto seu computador/servidor estiver ligado e rodando.
 
 ---
 
