@@ -37,6 +37,7 @@ async function sendBirthdayMessage(userId, name) {
 } catch (error) {
     console.error("erro ao enviar", error)
 }
+}
 
 
 cron.schedule('0 6 * * *', async () => {
