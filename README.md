@@ -58,8 +58,18 @@ CHANNEL_ID=canal_aqui
 
 ```bash
 [
-  { "name": "Fulano", "user": "40028922", "date": "02-02" },
-  { "name": "Ciclano", "user": "40038922", "date": "03-03" }
+  { 
+    "name": "Fulano",
+    "user": "40028922", 
+    "date": "02-02",
+    "lang": "pt"
+  },
+  { 
+    "name": "Ciclano",
+    "user": "40038922",
+    "date": "03-03",
+    "lang": "es"
+  }
 ]
 ```
 * `user`: ID do usuário no Slack
