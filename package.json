@@ -2,18 +2,21 @@
   "name": "slackbot",
   "version": "1.0.0",
   "description": "Slack bot for birthdays",
-  "main": "index.js",
+  "main": "bot.js",
   "scripts": {
-    "start": "node src/index.js",
-    "dev": "nodemon src/index.js"
+    "start": "node src/bot.js",
+    "dev": "nodemon src/bot.js"
   },
-  "keywords": ["slack"],
+  "keywords": [
+    "slack"
+  ],
   "author": "Eduardo Tashiro",
   "license": "MIT",
   "type": "module",
   "dependencies": {
     "@slack/bolt": "^4.4.0",
-    "node-cron": "^4.2.1"
+    "node-cron": "^4.2.1",
+    "pg": "^8.16.3"
   },
   "devDependencies": {
     "dotenv": "^17.2.1",
