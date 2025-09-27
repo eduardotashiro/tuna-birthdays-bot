@@ -1,91 +1,86 @@
 # Slack Birthday Bot 🎉
 
-### Um bot em Node.js que envia automaticamente mensagens de aniversário no Slack para usuários de um canal específico.
+- Um bot para Slack que envia mensagens de parabéns automaticamente para aniversariantes do dia, com suporte para português e espanhol
 
-Feito com [@slack/web-api](https://docs.slack.dev/tools/node-slack-sdk/web-api) e [node-cron](https://github.com/kelektiv/node-cron)
+## Objetivo
 
-> O bot lê aniversários de um arquivo JSON local e envia uma mensagem personalizada no Slack no dia correto.
+- O bot foi criado para automatizar a comemoração de aniversários no Slack, garantindo que ninguém seja esquecido e que as mensagens cheguem de forma divertida e personalizada.
 
-### Funcionalidades
+## 🛠 Tecnologias
 
-* Envia mensagens de aniversário no canal 
-Slack configurado
+- Node.js
+- PostgreSQL
+- Slack Web API
+- Node-cron
+- dotenv
+- Railway (deploy e bd)
 
-* Agendamento automático com node-cron
+## Estrutura do db
 
-* Armazena aniversários em um JSON (data/birthdays.json)
+Tabela: `slack_users`
 
-### Pré-requisitos
+| Coluna      | Tipo  | Restrição  | Descrição                       |
+|------------|------|------------|---------------------------------|
+| slack_id   | TEXT | PRIMARY KEY | ID do usuário no Slack          |
+| full_name  | TEXT | NOT NULL   | Nome completo do usuário        |
+| lang       | TEXT | NOT NULL   | Idioma do usuário (pt ou es)    |
+| birthday   | DATE | NOT NULL   | Data de aniversário (YYYY-MM-DD)|
 
-* [Node.js 18+](https://nodejs.org/pt)
+> coloquei o ano fixo em 2000, mas eu trato isso com o `WHERE TO_CHAR(birthday, 'MM-DD') = $1`, vai estar em db/dbQueries.js
 
-* Um token válido do Slack Bot (SLACK_BOT_TOKEN)
 
-* Uma workspace Slack com permissões para criar apps
+## Configuração
 
-* ID do canal do Slack onde as mensagens serão enviadas (CHANNEL_ID)
-
-### Dependências
-
-* [@slack/web-api](https://docs.slack.dev/tools/node-slack-sdk/web-api) -> SDK oficial do Slack para Node.js
-
-* [node-cron](https://github.com/kelektiv/node-cron) -> Agendador de tarefas estilo cron
-
-* [dotenv](https://github.com/motdotla/dotenv) -> Carrega variáveis de ambiente
-
-* [fs(File System)](https://nodejs.org/api/fs.html) -> Mod nativo do Node.js para ler/escrever arquivos
-
-### Instalação
-
-1 - Clone o repo
+- Clone o repositório:
 
 ```bash
 git clone https://github.com/eduardotashiro/tuna-birthdays-bot.git
+cd tuna-birthdays-bot
 ```
-2 - Instale as dependências
 
+- Instale as dependências:
+`npm i`
+
+- Configure as variáveis de ambiente (via Railway ou local):
 ```bash
-npm install
+DB_HOST= 
+DB_PORT=
+DB_USER=
+DB_PASSWORD=
+DB_NAME=
+SLACK_BOT_TOKEN=
+CHANNEL_ID=
 ```
-3 - Crie o arquivo `.env` na raiz do projeto e adicione:
+> O **CHANNEL_ID** é o canal do Slack onde o bot enviará as mensagens.
 
-```bash
-SLACK_BOT_TOKEN=seu_token_aqui
+## Cron
 
-CHANNEL_ID=canal_aqui
-```
-4 - Crie o arquivo `data/birthdays.json` com a lista de aniversariantes:
+- O bot roda automaticamente todos os dias no horário configurado, usando node-cron.
 
-```bash
-[
-  { 
-    "name": "Fulano",
-    "user": "40028922", 
-    "date": "02-02",
-    "lang": "pt"
-  },
-  { 
-    "name": "Ciclano",
-    "user": "40038922",
-    "date": "03-03",
-    "lang": "es"
-  }
-]
-```
-* `user`: ID do usuário no Slack
-
-* `date`: formato MM-DD
-
-5- Rode o projeto
-
-```bash
-npm start      # execução normal
-npm run dev    # execução com nodemon (desenvolvimento)
+ - Exemplo de agendamento para São Paulo(UTC-3):
+ 
+```js
+cron.schedule('0 9 * * *', async () => {
+    // Código para enviar mensagens
+}, {
+    scheduled: true,
+    timezone: "America/Sao_Paulo"
+})
 ```
 
+## Deploy
 
+- O projeto está rodando no Railway, integrado com GitHub para deploy automático a cada push
 
-#### ***Importante:*** O bot só funciona enquanto seu computador/servidor estiver ligado e rodando.
+- O banco PostgreSQL também está hospedado no Railway mas clone e use da maneira que preferi
+
+## Contribuição
+
+PR são bem-vindos! 
+
+Para mudanças significativas, abra uma issue primeiro para discutir o que deseja alterar.
+
+> ⚠️ Nunca commite seu `.env` com tokens do Slack ou credenciais do banco, é o basico mas sempre bom lembrar até pra mim mesmo kk
 
 ---
 

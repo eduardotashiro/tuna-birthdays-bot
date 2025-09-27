@@ -12,7 +12,7 @@ const channelId = process.env.CHANNEL_ID
 const client = new WebClient(slackBotToken)
 
 
-cron.schedule( '30 6 * * *', async () => { 
+cron.schedule( '30 6 * * *', async () => {  // Hr 06:30
 
     const aniversariantes = await getBirthdaysToday()
 
@@ -24,7 +24,13 @@ cron.schedule( '30 6 * * *', async () => {
     } else {
         console.log('nenhum aniversario hoje')
     }
-})
+},
+    {
+        scheduled: true,
+        timezone: "America/Sao_Paulo"
+    }
+
+)
 
 
 async function sendBirthdayMessage(slack_id, full_name, lang) {
