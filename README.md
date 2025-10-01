@@ -43,15 +43,15 @@ cd tuna-birthdays-bot
 
 - Configure as variáveis de ambiente (via Railway ou local):
 ```bash
-DB_HOST= 
-DB_PORT=
-DB_USER=
-DB_PASSWORD=
-DB_NAME=
-SLACK_BOT_TOKEN=
-CHANNEL_ID=
+SLACK_BOT_TOKEN=token_do_bot
+CHANNEL_ID=canal_do_slack
+DATABASE_URL=url_database
 ```
-> O **CHANNEL_ID** é o canal do Slack onde o bot enviará as mensagens.
+> SLACK_BOT_TOKEN - token do bot no Slack.
+
+>CHANNEL_ID - canal onde o bot vai enviar as mensagens.
+
+>DATABASE_URL - a URL do PostgreSQL do Railway (pública para testes locais, interna se for deploy no Railway).
 
 ## Cron
 
