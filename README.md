@@ -6,7 +6,7 @@
 
 - O bot foi criado para automatizar a comemoração de aniversários no Slack, garantindo que ninguém seja esquecido e que as mensagens cheguem de forma divertida e personalizada.
 
-## 🛠 Tecnologias
+## Tecnologias
 
 - Node.js
 - PostgreSQL
@@ -19,12 +19,12 @@
 
 Tabela: `slack_users`
 
-| Coluna      | Tipo  | Restrição  | Descrição                       |
-|------------|------|------------|---------------------------------|
+| Coluna     | Tipo | Restrição   | Descrição                       |
+|------------|------|-------------|---------------------------------|
 | slack_id   | TEXT | PRIMARY KEY | ID do usuário no Slack          |
-| full_name  | TEXT | NOT NULL   | Nome completo do usuário        |
-| lang       | TEXT | NOT NULL   | Idioma do usuário (pt ou es)    |
-| birthday   | DATE | NOT NULL   | Data de aniversário (YYYY-MM-DD)|
+| full_name  | TEXT | NOT NULL    | Nome completo do usuário        |
+| lang       | TEXT | NOT NULL    | Idioma do usuário (pt ou es)    |
+| birthday   | DATE | NOT NULL    | Data de aniversário (YYYY-MM-DD)|
 
 > coloquei o ano fixo em 2000, mas eu trato isso com o `WHERE TO_CHAR(birthday, 'MM-DD') = $1`, vai estar em db/dbQueries.js
 
@@ -60,8 +60,8 @@ DATABASE_URL=url_database
  - Exemplo de agendamento para São Paulo(UTC-3):
  
 ```js
-cron.schedule('0 9 * * *', async () => {
-    // Código para enviar mensagens
+cron.schedule('30 6 * * *', async () => {
+    //vai parabenizar as 06:30 da manhã
 }, {
     scheduled: true,
     timezone: "America/Sao_Paulo"
@@ -80,7 +80,7 @@ PR são bem-vindos!
 
 Para mudanças significativas, abra uma issue primeiro para discutir o que deseja alterar.
 
-> ⚠️ Nunca commite seu `.env` com tokens do Slack ou credenciais do banco, é o basico mas sempre bom lembrar até pra mim mesmo kk
+> ⚠️ Nunca commite seu `.env` com tokens do Slack ou credenciais do banco, é o basico mas sempre bom lembrar, isso vale para mim tambem kk
 
 ---
 
