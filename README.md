@@ -1,10 +1,14 @@
 # Slack Birthday Bot 🎉
 
-- Um bot para Slack que envia mensagens de parabéns automaticamente para aniversariantes do dia, com suporte para português e espanhol
+Um bot para Slack que envia **mensagens de parabéns automaticamente** para aniversariantes do dia, com suporte para **português e espanhol**.
+
+---
 
 ## Objetivo
 
-- O bot foi criado para automatizar a comemoração de aniversários no Slack, garantindo que ninguém seja esquecido e que as mensagens cheguem de forma divertida e personalizada.
+O bot foi criado para automatizar a comemoração de aniversários no Slack, garantindo que ninguém seja esquecido e que as mensagens cheguem de forma **divertida e personalizada**.
+
+---
 
 ## Tecnologias
 
@@ -13,40 +17,36 @@
 - Slack Web API
 - Node-cron
 - dotenv
-- Railway (deploy e bd)
+- Railway (deploy)
 
-## Estrutura do db
+---
 
-Tabela: `slack_users`
+## Estrutura do DB
+
+**Tabela:** `slack_users`
 
 | Coluna     | Tipo | Restrição   | Descrição                       |
 |------------|------|-------------|---------------------------------|
 | slack_id   | TEXT | PRIMARY KEY | ID do usuário no Slack          |
 | full_name  | TEXT | NOT NULL    | Nome completo do usuário        |
-| lang       | TEXT | NOT NULL    | Idioma do usuário (pt ou es)    |
+| lang       | TEXT | NOT NULL    | Idioma do usuário (pt ou es)   |
 | birthday   | DATE | NOT NULL    | Data de aniversário (YYYY-MM-DD)|
 
-> coloquei o ano fixo em 2000, mas eu trato isso com o `WHERE TO_CHAR(birthday, 'MM-DD') = $1`, vai estar em db/dbQueries.js
+> Observação: coloquei o ano fixo em 2000, mas a query usa `WHERE TO_CHAR(birthday, 'MM-DD') = $1` (em `db/dbQueries.js`)  
 
+---
 
 ## Configuração
 
-- Clone o repositório:
+1. Clone o repositório:
 
 ```bash
 git clone https://github.com/eduardotashiro/tuna-birthdays-bot.git
 cd tuna-birthdays-bot
+
 ```
 
-- Instale as dependências:
-`npm i`
-
-- Configure as variáveis de ambiente (via Railway ou local):
-```bash
-SLACK_BOT_TOKEN=token_do_bot
-CHANNEL_ID=canal_do_slack
-DATABASE_URL=url_database
-```
+## .env
 > SLACK_BOT_TOKEN - token do bot no Slack.
 
 >CHANNEL_ID - canal onde o bot vai enviar as mensagens.
@@ -72,16 +72,69 @@ cron.schedule('30 6 * * *', async () => {
 
 - O projeto está rodando no Railway, integrado com GitHub para deploy automático a cada push
 
-- O banco PostgreSQL também está hospedado no Railway mas clone e use da maneira que preferi
+- O banco PostgreSQL também está hospedado no Railway mas clone e use da maneira que preferir
 
 ## Contribuição
 
-PR são bem-vindos! 
+ - PR são bem-vindos
 
-Para mudanças significativas, abra uma issue primeiro para discutir o que deseja alterar.
+ - Para mudanças significativas, abra uma issue antes de enviar PR.
 
-> ⚠️ Nunca commite seu `.env` com tokens do Slack ou credenciais do banco, é o basico mas sempre bom lembrar, isso vale para mim tambem kk
 
 ---
 
 ***MIT*** © **Eduardo Tashiro**
+
+
+            ..::::::::::::::::::::::::::::::::::::::::::::::::::::--                      
+                    ##############################################################                  
+                  ####                                                          ##@@                
+                  ####                                                          ##MM                
+                    ##############################################################                  
+                      ..####..............................................##::                      
+                        ####                                              ##                        
+                        ####                                              ##                        
+                        ####                                              ##                        
+                        ####                                              ##                        
+                          ##                  TIME IS OVER                ##                        
+                          ##                                              ##                        
+                          ##                                            ####                        
+                          ####                                          ####                        
+                          mm##                                          ##                          
+                            ####                                      ####                          
+                            ####                                      ##MM                          
+                              ####                                  ####                            
+                              ++##      ----------------------    --##                              
+                                ####      ------------------      ####                              
+                                  ####        ----------        ####                                
+                                    ####        ----          ####                                  
+                                      ####        --      ######                                    
+                                        ####      --      ####                                      
+                                          ####    --    ####                                        
+                                          ####    --    ####                                        
+                                          ##mm    --    ####                                        
+                                        ####      --      ####                                      
+                                      ####        --        ####                                    
+                                    ####          --          ####                                  
+                                  ####          ----            ####                                
+                                ####            ------            ####                              
+                              ####              ------              ##                              
+                              ##@@            ----------            ####                            
+                            ####            --------------            ####                          
+                            ##..          ------------------          ####                          
+                          ####        --------------------------        ##                          
+                          ####      ------------------------------      ####                        
+                          ##      --------------------------------      @@##                        
+                          ##      ----------------------------------      ##                        
+                        --##    ------------------------------------      ##                        
+                        ####    --------------------------------------    ##                        
+                        ####    --------------------------------------    ##                        
+                        ####                                              ##                        
+                        ####                                              ##                        
+                      ##########################################################                    
+                    ##############################################################                  
+                  ####                                                          ##@@                
+                  ####                                                          ##mm                
+                    ##############################################################                  
+
+
