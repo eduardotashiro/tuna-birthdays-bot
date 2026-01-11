@@ -1,44 +1,37 @@
 # Slack Birthday Bot 🎉
 
-Um bot para Slack que envia **mensagens de parabéns automaticamente** para aniversariantes do dia, com suporte para **português e espanhol**.
+A Slack bot that **automatically sends birthday messages** to users on their special day, with support for *Portuguese and Spanish*.
 
----
+## Purpose
 
-## Objetivo
 
-O bot foi criado para automatizar a comemoração de aniversários no Slack, garantindo que ninguém seja esquecido e que as mensagens cheguem de forma **divertida e personalizada**.
+This bot was created to automate birthday celebrations on Slack, ensuring that no one is forgotten and that messages are delivered in a **personalized** way.
 
----
-
-## Tecnologias
+## Tech Stack
 
 - Node.js
 - PostgreSQL
-- Slack Web API
-- Node-cron
-- dotenv
-- Railway (deploy)
+- Slack API
+- Railway (deployment)
 
----
+## Database Structure
 
-## Estrutura do DB
+**Table:** `slack_users`
 
-**Tabela:** `slack_users`
-
-| Coluna     | Tipo | Restrição   | Descrição                       |
+| Column     | Type | Constraint  | Description                     |
 |------------|------|-------------|---------------------------------|
-| slack_id   | TEXT | PRIMARY KEY | ID do usuário no Slack          |
-| full_name  | TEXT | NOT NULL    | Nome completo do usuário        |
-| lang       | TEXT | NOT NULL    | Idioma do usuário (pt ou es)   |
-| birthday   | DATE | NOT NULL    | Data de aniversário (YYYY-MM-DD)|
+| slack_id   | TEXT | PRIMARY KEY | Slack user ID                   |
+| full_name  | TEXT | NOT NULL    | User full name                  |
+| lang       | TEXT | NOT NULL    | User language (pt or es)        |
+| birthday   | DATE | NOT NULL    | Birthday date (YYYY-MM-DD)      |
 
-> Observação: coloquei o ano fixo em 2000, mas a query usa `WHERE TO_CHAR(birthday, 'MM-DD') = $1` (em `db/dbQueries.js`)  
+> **Note:** the year is fixed as 2000, but the query filters only by month and day using
+WHERE TO_CHAR(birthday, 'MM-DD') = $1 (see db/dbQueries.js).
 
----
 
-## Configuração
+## Setup
 
-1. Clone o repositório:
+1. Clone the repository:
 
 ```bash
 git clone https://github.com/eduardotashiro/tuna-birthdays-bot.git
@@ -46,44 +39,47 @@ cd tuna-birthdays-bot
 
 ```
 
-## .env
-> SLACK_BOT_TOKEN - token do bot no Slack.
+## Environment Variables 
+> SLACK_BOT_TOKEN=your-slack-bot-token
 
->CHANNEL_ID - canal onde o bot vai enviar as mensagens.
+>CHANNEL_ID=slack-channel-id
 
->DATABASE_URL - a URL do PostgreSQL do Railway (pública para testes locais, interna se for deploy no Railway).
+>DATABASE_URL=postgresql-connection-url
+
+- *DATABASE_URL should be the Railway PostgreSQL URL
+(public for local testing, internal for Railway deploy).*
 
 ## Cron
 
-- O bot roda automaticamente todos os dias no horário configurado, usando node-cron.
+- The bot runs automatically every day at the configured time using node-cron.
 
- - Exemplo de agendamento para São Paulo(UTC-3):
+ - Example schedule for São Paulo (UTC-3):
  
 ```js
 cron.schedule('30 6 * * *', async () => {
-    //vai parabenizar as 06:30 da manhã
+  // Sends birthday messages at 06:30 AM
 }, {
-    scheduled: true,
-    timezone: "America/Sao_Paulo"
+  scheduled: true,
+  timezone: "America/Sao_Paulo"
 })
 ```
 
-## Deploy
+## Deployment
 
-- O projeto está rodando no Railway, integrado com GitHub para deploy automático a cada push
+- The project is deployed on Railway, integrated with GitHub for automatic deploys on every push.
 
-- O banco PostgreSQL também está hospedado no Railway mas clone e use da maneira que preferir
+- PostgreSQL is also hosted on Railway, but you can clone the project and use any database provider you prefer.
 
-## Contribuição
+## Contributing
 
- - PR são bem-vindos
+ - Pull requests are welcome :) 
 
- - Para mudanças significativas, abra uma issue antes de enviar PR.
-
-
+ - For significant changes, please open an issue first to discuss what you would like to change.
+<br><br><br>
 ---
+*MIT* © ***Eduardo Tashiro***
 
-***MIT*** © **Eduardo Tashiro**
+
 
 
             ..::::::::::::::::::::::::::::::::::::::::::::::::::::--                      
@@ -135,6 +131,6 @@ cron.schedule('30 6 * * *', async () => {
                     ##############################################################                  
                   ####                                                          ##@@                
                   ####                                                          ##mm                
-                    ##############################################################                  
+                    ##############################################################                    I think, therefore I grow old.
 
 
