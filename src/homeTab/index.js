@@ -1,18 +1,17 @@
 import { getBirthdaysMonth } from "../db/dbQueries.js";
-import dotenv from "dotenv"
-dotenv.config()
+import { config } from "../config/env.js";
 
 
- export function homeTab (app){
+export function homeTab(app) {
   app.event("app_home_opened", async ({ event, client }) => {
     try {
-      const aniversariantes = await getBirthdaysMonth()
+      const birthdayPersonOfTheMonth = await getBirthdaysMonth()
 
 
       const blocks = [
         {
           type: "image",
-          image_url: process.env.HOME_BANNER_URL,
+          image_url: config.homeBannerUrlL,
           alt_text: "Banner principal",
         },
         {
@@ -29,10 +28,10 @@ dotenv.config()
       ];
 
 
-      if (aniversariantes.length > 0) {
-        const monthName = new Date().toLocaleString("pt-BR",{month: "long"})
+      if (birthdayPerson.length > 0) {
+        const monthName = new Date().toLocaleString("pt-BR", { month: "long" })
 
-        aniversariantes.forEach((a) => {
+        birthdayPersonOfTheMonth.forEach((a) => {
           blocks.push({
             type: "section",
             text: {
@@ -52,7 +51,7 @@ dotenv.config()
         });
       }
 
-    
+
       await client.views.publish({
         user_id: event.user,
         view: {

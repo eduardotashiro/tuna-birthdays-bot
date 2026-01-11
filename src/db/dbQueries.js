@@ -16,7 +16,7 @@ export async function getBirthdaysToday() {
         return res.rows
     } catch (err) {
         console.error('Erro ao buscar aniversariantes:', err)
-        return [] //fallback
+        return [] 
     }
 }
 
