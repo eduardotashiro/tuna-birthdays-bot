@@ -5,9 +5,6 @@ import { config } from "../config/env.js";
 export function homeTab(app) {
   app.event("app_home_opened", async ({ event, client }) => {
     try {
-      const birthdayPersonOfTheMonth = await getBirthdaysMonth()
-
-
       const blocks = [
         {
           type: "image",
@@ -26,22 +23,22 @@ export function homeTab(app) {
           type: "divider",
         },
       ];
-
-
+      
+      const birthdayPersonOfTheMonth = await getBirthdaysMonth()
+      
       if (birthdayPersonOfTheMonth.length > 0) {
         const monthName = new Date().toLocaleString("pt-BR", { month: "long" })
-// add for of loop mdfk 
-        birthdayPersonOfTheMonth.forEach((a) => {
+
+        for (const b of birthdayPersonOfTheMonth) {
           blocks.push({
             type: "section",
             text: {
               type: "mrkdwn",
-              text: `:birthday:  *${a.full_name}* - ${a.day} de ${monthName}`,
+              text: `:birthday:  *${b.full_name}* - ${b.day} de ${monthName}`,
             },
           });
-        });
+        }
       } else {
-
         blocks.push({
           type: "section",
           text: {
@@ -50,7 +47,6 @@ export function homeTab(app) {
           },
         });
       }
-
 
       await client.views.publish({
         user_id: event.user,
