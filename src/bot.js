@@ -1,24 +1,21 @@
-import { WebClient } from '@slack/web-api'
-import { getBirthdaysToday } from '../db/dbQueries.js'
-import cron from "node-cron"
-import {config} from './config/env.js'
-import pkg from '@slack/bolt'
+import { getBirthdaysToday } from '../db/dbQueries.js';
+import { WebClient } from '@slack/web-api';
+import { homeTab } from './homeTab/appHome.js';
+import {config} from './config/env.js';
+import cron from "node-cron";
+import pkg from '@slack/bolt';
 const { App } = pkg;
-
-import { homeTab } from './homeTab/index.js'
-
-
 
 const app = new App({
     signingSecret: config.slack.slackSigningSecret,
     token: config.slack.slackBotToken,
 })
-homeTab(app)
+
+homeTab(app);
 
 
-const SLACK_BOT_TOKEN = config.slack.slackBotToken
-const channelId = config.slack.channelId
-
+const channelId = config.slack.channelId;
+const SLACK_BOT_TOKEN = config.slack.slackBotToken;
 const client = new WebClient(SLACK_BOT_TOKEN)
 
 
