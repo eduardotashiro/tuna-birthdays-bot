@@ -1,24 +1,23 @@
 import { WebClient } from '@slack/web-api'
-import dotenv from 'dotenv'
 import { getBirthdaysToday } from '../db/dbQueries.js'
 import cron from "node-cron"
-
+import {config} from './config/env.js'
 import pkg from '@slack/bolt'
 const { App } = pkg;
 
 import { homeTab } from './homeTab/index.js'
 
-dotenv.config()
+
 
 const app = new App({
-    signingSecret: process.env.SLACK_SIGNING_SECRET,
-    token: process.env.SLACK_BOT_TOKEN
+    signingSecret: config.slack.slackSigningSecret,
+    token: config.slack.slackBotToken,
 })
 homeTab(app)
 
 
-const SLACK_BOT_TOKEN = process.env.SLACK_BOT_TOKEN
-const channelId = process.env.CHANNEL_ID
+const SLACK_BOT_TOKEN = config.slack.slackBotToken
+const channelId = config.slack.channelId
 
 const client = new WebClient(SLACK_BOT_TOKEN)
 
@@ -71,7 +70,7 @@ Parabéns <@${slack_id}> !!! Que seu novo ciclo seja cheio de saúde, sucesso e 
 }
 
 
-await app.start(process.env.PORT);
+await app.start(config.slack.port || 3000);
 console.log("Tuna Birthday running");
 
 
