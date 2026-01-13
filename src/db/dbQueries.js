@@ -1,7 +1,6 @@
 import { pool } from './db.js'
 import { getToday } from '../utils/date.js'
 
-//pega MM-DD para parabenizar o fulano
 export async function getBirthdaysToday() {
     const today = getToday()
 
@@ -13,7 +12,7 @@ export async function getBirthdaysToday() {
         AND (lang = 'pt' OR lang = 'es')`,
         [today]
         )
-        return res.rows
+        return res.rows // ex: [ { slack_id: 'U011RHB6666', full_name: 'Matheus', lang: 'pt' } ]
     } catch (err) {
         console.error('Erro ao buscar aniversariantes:', err)
         return [] 
@@ -21,13 +20,12 @@ export async function getBirthdaysToday() {
 }
 
 
-//pega mẽs para mostrar que o fulano esta de aniversario nesse mês
+
 export async function getBirthdaysMonth() {
 
     const today = new Date()
     const month = String(today.getMonth() + 1).padStart(2, '0')
     
-
     try {
         const res = await pool.query(
         `SELECT full_name, TO_CHAR(birthday,'DD') AS day
@@ -36,10 +34,10 @@ export async function getBirthdaysMonth() {
         ORDER BY TO_CHAR(birthday, 'DD')::int`,
         [month]
         )
-        return res.rows
+        return res.rows  //[ { full_name: 'Edu', day: '06' }, { full_name: 'Dudu', day: '09' } ]
     } catch (err) {
         console.error('Erro ao buscar aniversariantes do mês:', err)
-        return [] //fallback
+        return []
     }
 }
 
